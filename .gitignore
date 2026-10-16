@@ -1,0 +1,12 @@
+# Downloaded Puertos del Estado source data must never be committed
+data/model_input/*
+!data/model_input/.gitignore
+**/.ipynb_checkpoints/
+**/__pycache__/
+*.py[cod]
+.env
+.venv/
+model_outputs/
+notebook/model_outputs/
+results/
+notebook/results/
