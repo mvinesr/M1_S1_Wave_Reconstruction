@@ -1,8 +1,8 @@
 # Offshore M1–SIMAR example for wave reconstruction
 
-This repository provides a public offshore example illustrating the residual-learning workflow described in **Bridging long-term nearshore wave gaps using Deep Learning for offshore-to-nearshore dynamics**, by Manuel Viñes and coauthors.
+This repository provides a public offshore example illustrating the residual-learning workflow described in **Gap bridging for nearshore wave series using deep learning tools**, by Manuel Viñes and coauthors.
 
-The example uses significant wave height observations from the Bilbao-Vizcaya M1 buoy as the reconstruction target and the SIMAR point S1 as the offshore reference. It includes CNN-GRU/LSTM, Temporal Convolutional Network (TCN), and ConvLSTM implementations.
+The example uses significant wave height observations from the Bilbao-Vizcaya (M1) buoy as the reconstruction target and the SIMAR point (S1) as the offshore reference. It includes CNN-GRU/LSTM, Temporal Convolutional Network (TCN), and ConvLSTM implementations.
 
 The original Puertos del Estado (PdE) input time series are **not redistributed in this repository**. Users who wish to execute the workflow must obtain the corresponding source series directly from the Puertos del Estado Portus service and use them in accordance with the provider's terms.
 
@@ -29,11 +29,10 @@ The explicit historical storm assessment reported in the manuscript is not inclu
 
 The main notebook is `notebook/m1-open-dl-reconstruction_paper.ipynb`. Its final CSV exports combine the retained M1 observations with model predictions: observations are preserved wherever available, and predictions fill missing observations only where a complete predictor window is available. These local exports contain `datetime`, `Hs` (in metres) and `source`, with the labels `observed`, `reconstructed` or `unavailable`.
 
-The CSV files distributed in `data/model_output/` are a different output product. They contain only model-derived predictions, including at timestamps where M1 observations were available, and do not insert observed M1 values. Their columns are `datetime` and `Hs` (in metres). Empty `Hs` fields indicate unavailable predictions; a regular three-hour time grid does not imply complete prediction coverage.
+The CSV files distributed in `data/model_output/` are a different output product. They contain only model-derived predictions, including at timestamps where M1 observations were available, and do not insert observed M1 values. Their columns are `datetime` and `Hs` (in metres). 
 
-These public CSVs use a separate full-prediction export procedure. The difference concerns the timestamps selected for inference and whether observations are inserted into the exported series; it does not require a different training method. Running the main notebook's export cells produces the combined series described above, not the prediction-only CSV product distributed here. The full-prediction export selects every timestamp with a valid predictor window, regardless of observation availability.
+These public CSVs use a separate full-prediction export procedure. The difference concerns the timestamps selected for inference and whether observations are inserted into the exported series, it does not require a different training method. Running the main notebook's export cells produces the combined series described above, not the prediction-only CSV product distributed here. 
 
-Predictions within training or validation periods must not be interpreted as independent test results. Only the held-out test subset is used for independent performance assessment.
 
 ## Required source data
 
@@ -69,7 +68,7 @@ jupyter lab
 
 Open `notebook/m1-open-dl-reconstruction_paper.ipynb`, select the environment, restart the kernel and run the cells in order. Input paths support execution from the repository root or the `notebook/` directory. The final time-series CSV export cells write to `model_outputs/`, relative to the current working directory (for example, `notebook/model_outputs/` when the kernel runs from `notebook/`). This is separate from the `results/` directory configured during setup and from the published files in `data/model_output/`. Training and Optuna searches may take substantial time.
 
-The distributed notebook has all saved cell outputs and execution counts cleared to avoid redistributing observational data through cached tables or figures. The authors verified a complete notebook execution locally using source datasets independently downloaded from Puertos del Estado before preparing this release; the archived notebook itself contains no cached execution outputs. Dependency ranges are provided rather than an exact locked environment.
+The distributed notebook has all saved cell outputs and execution counts cleared to avoid redistributing observational data through cached tables or figures. The authors verified a complete notebook execution locally using source datasets independently downloaded from Puertos del Estado before preparing this release.
 
 ## Data provenance, attribution and redistribution
 
@@ -82,10 +81,5 @@ Provider information and current terms should be checked directly at:
 - Portus: https://portus.puertos.es/#/
 - Puertos del Estado Oceanography FAQ: https://www.puertos.es/servicios/oceanografia/faqs
 
-The reconstructed files in `data/model_output/` are model-derived outputs produced by this study; they are not copies of the original PdE source time series.
+The reconstructed files in `data/model_output/` are model-derived outputs produced by this study, they are not copies of the original PdE source time series.
 
-The MIT licence applies to the software in this repository and does not grant or modify rights over Puertos del Estado source data.
-
-## Citation and release
-
-Use `CITATION.cff` for software attribution. Before publication, add the release version and date and reference the manuscript using its final bibliographic metadata. Add an archive DOI only after the corresponding release has been deposited. The manuscript's data and code availability statement should describe the files actually distributed.
